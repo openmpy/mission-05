@@ -1,5 +1,6 @@
 package com.example.mission05.domain.member.controller;
 
+import com.example.mission05.domain.member.controller.docs.MemberControllerDocs;
 import com.example.mission05.domain.member.dto.MemberRequestDto.SignupMemberRequestDto;
 import com.example.mission05.domain.member.dto.MemberResponseDto.SignupMemberResponseDto;
 import com.example.mission05.domain.member.service.MemberService;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/members")
 @RestController
-public class MemberController {
+public class MemberController implements MemberControllerDocs {
 
     private final MemberService memberService;
 

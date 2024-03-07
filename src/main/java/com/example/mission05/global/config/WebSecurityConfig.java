@@ -73,6 +73,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/v1/members/*").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/goods/{goodsId}").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/goods").permitAll()
+                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                 .requestMatchers(PathRequest.toH2Console()).permitAll()
                 .anyRequest().authenticated()
         );
