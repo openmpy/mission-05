@@ -13,6 +13,7 @@ public class GoodsResponseDto {
             Integer amount,
             String introduction,
             String category,
+            String imageUrl,
             LocalDateTime createdAt
     ) {
         public CreateGoodsResponseDto(Goods goods) {
@@ -22,6 +23,7 @@ public class GoodsResponseDto {
                     goods.getAmount(),
                     goods.getIntroduction(),
                     goods.getCategory(),
+                    goods.getImageUrl(),
                     goods.getCreatedAt()
             );
         }
@@ -33,6 +35,7 @@ public class GoodsResponseDto {
             Integer amount,
             String introduction,
             String category,
+            String imageUrl,
             LocalDateTime createdAt,
             LocalDateTime modifiedAt
     ) {
@@ -43,6 +46,7 @@ public class GoodsResponseDto {
                     goods.getAmount(),
                     goods.getIntroduction(),
                     goods.getCategory(),
+                    goods.getImageUrl(),
                     goods.getCreatedAt(),
                     goods.getModifiedAt()
             );
@@ -54,11 +58,6 @@ public class GoodsResponseDto {
             Integer page,
             Integer count
     ) {
-        public SearchGoodsDto(List<GetGoodsResponseDto> goodsList, Integer page, Integer count) {
-            this.goodsList = goodsList;
-            this.page = page;
-            this.count = count;
-        }
     }
 
     public record BuyGoodsResponseDto(
@@ -66,10 +65,5 @@ public class GoodsResponseDto {
             Integer amount,
             int totalPrice
     ) {
-        public BuyGoodsResponseDto(String goodsName, Integer amount, int totalPrice) {
-            this.goodsName = goodsName;
-            this.amount = amount;
-            this.totalPrice = totalPrice;
-        }
     }
 }

@@ -6,6 +6,7 @@ import com.example.mission05.domain.goods.dto.GoodsResponseDto.CreateGoodsRespon
 import com.example.mission05.domain.goods.dto.GoodsResponseDto.GetGoodsResponseDto;
 import com.example.mission05.domain.goods.dto.GoodsResponseDto.SearchGoodsDto;
 import com.example.mission05.domain.goods.service.GoodsService;
+import com.example.mission05.domain.goods.service.GoodsUploadService;
 import com.example.mission05.domain.member.entity.type.AuthorityType.Authority;
 import com.example.mission05.global.dto.ResponseDto;
 import com.example.mission05.global.security.UserDetailsImpl;
@@ -15,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/goods")
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 public class GoodsController implements GoodsControllerDocs {
 
     private final GoodsService goodsService;
+    private final GoodsUploadService goodsUploadService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -49,5 +52,16 @@ public class GoodsController implements GoodsControllerDocs {
     ) {
         SearchGoodsDto responseDto = goodsService.searchGoods(page, size, sortBy, orderBy);
         return ResponseDto.success("상품 목록 조회 기능", responseDto);
+    }
+
+    @PatchMapping("/{goodsId}")
+    @Secured(Authority.ADMIN)
+    public ResponseDto<GetGoodsResponseDto> uploadGoodsImage(
+            @AuthenticationPrincipal UserDetailsImpl userDetails,
+            @PathVariable Long goodsId,
+            @RequestParam("file") MultipartFile file
+    ) {
+        GetGoodsResponseDto responseDto = goodsUploadService.uploadGoodsImage(userDetails.getUsername(), goodsId, file);
+        return ResponseDto.success("상품 이미지 업로드 기능", responseDto);
     }
 }

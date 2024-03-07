@@ -12,6 +12,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Tag(name = "Goods", description = "상품 관련 API")
 public interface GoodsControllerDocs {
@@ -31,5 +32,12 @@ public interface GoodsControllerDocs {
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "name") String sortBy,
             @RequestParam(defaultValue = "asc") String orderBy
+    );
+
+    @Operation(summary = "상품 이미지 업로드 기능", description = "상품 이미지를 업로드할 수 있는 API")
+    ResponseDto<GoodsResponseDto.GetGoodsResponseDto> uploadGoodsImage(
+            @AuthenticationPrincipal UserDetailsImpl userDetails,
+            @PathVariable Long goodsId,
+            @RequestParam("file") MultipartFile file
     );
 }
