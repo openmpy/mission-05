@@ -1,5 +1,6 @@
 package com.example.mission05.domain.basket.service;
 
+import com.example.mission05.domain.basket.dto.BasketRequestDto.EditBasketRequestDto;
 import com.example.mission05.domain.basket.dto.BasketResponseDto.GetBasketListResponseDto;
 import com.example.mission05.domain.basket.dto.BasketResponseDto.GetBasketResponseDto;
 import com.example.mission05.domain.basket.entity.Basket;
@@ -81,5 +82,34 @@ public class BasketService {
             totalPrice += (long) basket.getGoods().getPrice() * basket.getAmount();
         }
         return new GetBasketListResponseDto(basketResponseDtoList, totalPrice);
+    }
+
+    @Transactional
+    public GetBasketResponseDto editBasket(String email, Long basketId, EditBasketRequestDto requestDto) {
+        Member member = memberRepository.findByEmail(email).orElseThrow(() ->
+                new CustomApiException(ErrorCode.NOT_FOUND_EMAIL.getMessage())
+        );
+        Basket basket = basketRepository.findById(basketId).orElseThrow(() ->
+                new CustomApiException(ErrorCode.NOT_FOUND_BASKET.getMessage())
+        );
+        if (basket.getMember() != member) {
+            throw new CustomApiException(ErrorCode.NOT_INCORRECT_MEMBER.getMessage());
+        }
+        Goods goods = goodsRepository.findById(basket.getGoods().getId()).orElseThrow(() ->
+                new CustomApiException(ErrorCode.NOT_FOUND_GOODS.getMessage())
+        );
+
+        if (basket.getAmount() < requestDto.amount()) {
+            if (goods.getAmount() - (requestDto.amount() - basket.getAmount()) < 0) {
+                throw new CustomApiException(ErrorCode.LACK_AMOUNT_GOODS.getMessage());
+            }
+
+            goods.updateAmount(goods.getAmount() - (requestDto.amount() - basket.getAmount()));
+            basket.updateAmount(requestDto.amount());
+        } else {
+            goods.updateAmount(goods.getAmount() + basket.getAmount() - requestDto.amount());
+            basket.updateAmount(requestDto.amount());
+        }
+        return new GetBasketResponseDto(goods.getName(), goods.getPrice(), basket.getAmount());
     }
 }

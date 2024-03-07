@@ -1,6 +1,8 @@
 package com.example.mission05.domain.basket.controller;
 
+import com.example.mission05.domain.basket.dto.BasketRequestDto.EditBasketRequestDto;
 import com.example.mission05.domain.basket.dto.BasketResponseDto.GetBasketListResponseDto;
+import com.example.mission05.domain.basket.dto.BasketResponseDto.GetBasketResponseDto;
 import com.example.mission05.domain.basket.service.BasketService;
 import com.example.mission05.domain.goods.dto.GoodsRequestDto.BuyGoodsRequestDto;
 import com.example.mission05.domain.goods.dto.GoodsResponseDto.BuyGoodsResponseDto;
@@ -28,11 +30,20 @@ public class BasketController {
         return ResponseDto.success("장바구니 추가 기능", responseDto);
     }
 
-    @GetMapping
+    @GetMapping("/baskets")
     public ResponseDto<GetBasketListResponseDto> getBasketList(
             @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
         GetBasketListResponseDto result = basketService.getBasketList(userDetails.getUsername());
         return ResponseDto.success("장바구니 조회 기능", result);
+    }
+
+    @PatchMapping("/baskets/{basketId}")
+    public ResponseDto<GetBasketResponseDto> editBasket(
+            @AuthenticationPrincipal UserDetailsImpl userDetails,
+            @PathVariable Long basketId,
+            @RequestBody @Valid EditBasketRequestDto requestDto) {
+        GetBasketResponseDto responseDto = basketService.editBasket(userDetails.getUsername(), basketId, requestDto);
+        return ResponseDto.success("장바구니 수정 기능", responseDto);
     }
 }
