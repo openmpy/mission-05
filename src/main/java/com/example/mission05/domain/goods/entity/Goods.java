@@ -40,4 +40,8 @@ public class Goods extends Timestamped {
         this.introduction = introduction;
         this.category = category;
     }
+
+    public void updateAmount(int amount) {
+        this.amount = amount;
+    }
 }

@@ -33,4 +33,11 @@ public class GoodsRequestDto {
                     .build();
         }
     }
+
+    public record BuyGoodsRequestDto(
+            @Positive(message = "수량을 입력해주세요.")
+            Integer amount
+    ) {
+
+    }
 }

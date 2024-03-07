@@ -60,4 +60,16 @@ public class GoodsResponseDto {
             this.count = count;
         }
     }
+
+    public record BuyGoodsResponseDto(
+            String goodsName,
+            Integer amount,
+            int totalPrice
+    ) {
+        public BuyGoodsResponseDto(String goodsName, Integer amount, int totalPrice) {
+            this.goodsName = goodsName;
+            this.amount = amount;
+            this.totalPrice = totalPrice;
+        }
+    }
 }
