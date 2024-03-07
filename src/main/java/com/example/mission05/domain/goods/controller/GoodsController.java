@@ -3,6 +3,7 @@ package com.example.mission05.domain.goods.controller;
 import com.example.mission05.domain.goods.dto.GoodsRequestDto.CreateGoodsRequestDto;
 import com.example.mission05.domain.goods.dto.GoodsResponseDto.CreateGoodsResponseDto;
 import com.example.mission05.domain.goods.dto.GoodsResponseDto.GetGoodsResponseDto;
+import com.example.mission05.domain.goods.dto.GoodsResponseDto.SearchGoodsDto;
 import com.example.mission05.domain.goods.service.GoodsService;
 import com.example.mission05.domain.member.entity.type.AuthorityType.Authority;
 import com.example.mission05.global.dto.ResponseDto;
@@ -36,5 +37,16 @@ public class GoodsController {
     public ResponseDto<GetGoodsResponseDto> getGoods(@PathVariable Long goodsId) {
         GetGoodsResponseDto responseDto = goodsService.getGoods(goodsId);
         return ResponseDto.success("선택한 상품 조회 기능", responseDto);
+    }
+
+    @GetMapping
+    public ResponseDto<SearchGoodsDto> searchGoods(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "name") String sortBy,
+            @RequestParam(defaultValue = "asc") String orderBy
+    ) {
+        SearchGoodsDto responseDto = goodsService.searchGoods(page, size, sortBy, orderBy);
+        return ResponseDto.success("상품 목록 조회 기능", responseDto);
     }
 }

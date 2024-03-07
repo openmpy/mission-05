@@ -72,6 +72,7 @@ public class WebSecurityConfig {
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .requestMatchers("/api/v1/members/*").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/goods/{goodsId}").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/goods").permitAll()
                 .requestMatchers(PathRequest.toH2Console()).permitAll()
                 .anyRequest().authenticated()
         );

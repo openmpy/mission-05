@@ -3,6 +3,7 @@ package com.example.mission05.domain.goods.dto;
 import com.example.mission05.domain.goods.entity.Goods;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class GoodsResponseDto {
 
@@ -45,6 +46,18 @@ public class GoodsResponseDto {
                     goods.getCreatedAt(),
                     goods.getModifiedAt()
             );
+        }
+    }
+
+    public record SearchGoodsDto(
+            List<GetGoodsResponseDto> goodsList,
+            Integer page,
+            Integer count
+    ) {
+        public SearchGoodsDto(List<GetGoodsResponseDto> goodsList, Integer page, Integer count) {
+            this.goodsList = goodsList;
+            this.page = page;
+            this.count = count;
         }
     }
 }
