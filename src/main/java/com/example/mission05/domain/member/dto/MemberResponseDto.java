@@ -14,4 +14,12 @@ public class MemberResponseDto {
             this(member.getEmail(), member.getCreatedAt());
         }
     }
+
+    public record SigninMemberResponseDto(
+            String email
+    ) {
+        public SigninMemberResponseDto(Member member) {
+            this(member.getEmail());
+        }
+    }
 }

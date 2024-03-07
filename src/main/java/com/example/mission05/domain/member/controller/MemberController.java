@@ -16,7 +16,7 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping
+    @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseDto<SignupMemberResponseDto> createMember(@RequestBody @Valid SignupMemberRequestDto requestDto) {
         SignupMemberResponseDto result = memberService.createMember(requestDto);
