@@ -1,5 +1,6 @@
 package com.example.mission05.domain.goods.controller;
 
+import com.example.mission05.domain.goods.controller.docs.GoodsControllerDocs;
 import com.example.mission05.domain.goods.dto.GoodsRequestDto.CreateGoodsRequestDto;
 import com.example.mission05.domain.goods.dto.GoodsResponseDto.CreateGoodsResponseDto;
 import com.example.mission05.domain.goods.dto.GoodsResponseDto.GetGoodsResponseDto;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/goods")
 @RestController
-public class GoodsController {
+public class GoodsController implements GoodsControllerDocs {
 
     private final GoodsService goodsService;
 

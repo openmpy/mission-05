@@ -1,5 +1,6 @@
 package com.example.mission05.domain.basket.controller;
 
+import com.example.mission05.domain.basket.controller.docs.BasketControllerDocs;
 import com.example.mission05.domain.basket.dto.BasketRequestDto.EditBasketRequestDto;
 import com.example.mission05.domain.basket.dto.BasketResponseDto.GetBasketListResponseDto;
 import com.example.mission05.domain.basket.dto.BasketResponseDto.GetBasketResponseDto;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1")
 @RestController
-public class BasketController {
+public class BasketController implements BasketControllerDocs {
 
     private final BasketService basketService;
 
@@ -43,7 +44,8 @@ public class BasketController {
     public ResponseDto<GetBasketResponseDto> editBasket(
             @AuthenticationPrincipal UserDetailsImpl userDetails,
             @PathVariable Long basketId,
-            @RequestBody @Valid EditBasketRequestDto requestDto) {
+            @RequestBody @Valid EditBasketRequestDto requestDto
+    ) {
         GetBasketResponseDto responseDto = basketService.editBasket(userDetails.getUsername(), basketId, requestDto);
         return ResponseDto.success("장바구니 수정 기능", responseDto);
     }
