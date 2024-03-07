@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public enum AuthorityType {
 
-    MEMBER(Authority.USER), ADMIN(Authority.ADMIN);
+    USER(Authority.USER), ADMIN(Authority.ADMIN);
 
     private final String authority;
 

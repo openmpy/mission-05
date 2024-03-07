@@ -2,6 +2,7 @@ package com.example.mission05.domain.member.entity;
 
 import com.example.mission05.domain.member.entity.type.AuthorityType;
 import com.example.mission05.domain.member.entity.type.GenderType;
+import com.example.mission05.global.entity.Timestamped;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @Table(name = "member_tbl")
-public class Member {
+public class Member extends Timestamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +36,7 @@ public class Member {
     private String address;
 
     @Column(name = "authority", nullable = false)
+    @Enumerated(EnumType.STRING)
     private AuthorityType authority;
 
     @Builder
