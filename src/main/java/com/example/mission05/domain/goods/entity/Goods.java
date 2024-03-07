@@ -1,5 +1,6 @@
 package com.example.mission05.domain.goods.entity;
 
+import com.example.mission05.global.entity.Timestamped;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -10,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @Table(name = "goods_tbl")
-public class Goods {
+public class Goods extends Timestamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
