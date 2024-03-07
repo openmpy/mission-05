@@ -112,4 +112,19 @@ public class BasketService {
         }
         return new GetBasketResponseDto(goods.getName(), goods.getPrice(), basket.getAmount());
     }
+
+    @Transactional
+    public void deleteBasket(String email, Long basketId) {
+        Member member = memberRepository.findByEmail(email).orElseThrow(() ->
+                new CustomApiException(ErrorCode.NOT_FOUND_EMAIL.getMessage())
+        );
+        Basket basket = basketRepository.findById(basketId).orElseThrow(() ->
+                new CustomApiException(ErrorCode.NOT_FOUND_BASKET.getMessage())
+        );
+        if (basket.getMember() != member) {
+            throw new CustomApiException(ErrorCode.NOT_INCORRECT_MEMBER.getMessage());
+        }
+
+        basketRepository.delete(basket);
+    }
 }
