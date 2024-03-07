@@ -2,6 +2,7 @@ package com.example.mission05.domain.goods.service;
 
 import com.example.mission05.domain.goods.dto.GoodsRequestDto.CreateGoodsRequestDto;
 import com.example.mission05.domain.goods.dto.GoodsResponseDto.CreateGoodsResponseDto;
+import com.example.mission05.domain.goods.dto.GoodsResponseDto.GetGoodsResponseDto;
 import com.example.mission05.domain.goods.entity.Goods;
 import com.example.mission05.domain.goods.repository.GoodsRepository;
 import com.example.mission05.domain.member.repository.MemberRepository;
@@ -26,5 +27,14 @@ public class GoodsService {
 
         Goods goods = goodsRepository.save(requestDto.toEntity());
         return new CreateGoodsResponseDto(goods);
+    }
+
+    @Transactional(readOnly = true)
+    public GetGoodsResponseDto getGoods(Long goodsId) {
+        Goods goods = goodsRepository.findById(goodsId).orElseThrow(() ->
+                new CustomApiException(ErrorCode.NOT_FOUND_GOODS.getMessage())
+        );
+
+        return new GetGoodsResponseDto(goods);
     }
 }
