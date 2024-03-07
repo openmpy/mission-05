@@ -32,16 +32,24 @@ public class Goods extends Timestamped {
     @Column(name = "category", nullable = false)
     private String category;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     @Builder
-    public Goods(String name, Integer price, Integer amount, String introduction, String category) {
+    public Goods(String name, Integer price, Integer amount, String introduction, String category, String imageUrl) {
         this.name = name;
         this.price = price;
         this.amount = amount;
         this.introduction = introduction;
         this.category = category;
+        this.imageUrl = imageUrl;
     }
 
     public void updateAmount(int amount) {
         this.amount = amount;
+    }
+
+    public void uploadImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
