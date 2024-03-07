@@ -15,7 +15,36 @@ public class GoodsResponseDto {
             LocalDateTime createdAt
     ) {
         public CreateGoodsResponseDto(Goods goods) {
-            this(goods.getName(), goods.getPrice(), goods.getAmount(), goods.getIntroduction(), goods.getCategory(), goods.getCreatedAt());
+            this(
+                    goods.getName(),
+                    goods.getPrice(),
+                    goods.getAmount(),
+                    goods.getIntroduction(),
+                    goods.getCategory(),
+                    goods.getCreatedAt()
+            );
+        }
+    }
+
+    public record GetGoodsResponseDto(
+            String name,
+            Integer price,
+            Integer amount,
+            String introduction,
+            String category,
+            LocalDateTime createdAt,
+            LocalDateTime modifiedAt
+    ) {
+        public GetGoodsResponseDto(Goods goods) {
+            this(
+                    goods.getName(),
+                    goods.getPrice(),
+                    goods.getAmount(),
+                    goods.getIntroduction(),
+                    goods.getCategory(),
+                    goods.getCreatedAt(),
+                    goods.getModifiedAt()
+            );
         }
     }
 }

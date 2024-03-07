@@ -2,6 +2,7 @@ package com.example.mission05.domain.goods.controller;
 
 import com.example.mission05.domain.goods.dto.GoodsRequestDto.CreateGoodsRequestDto;
 import com.example.mission05.domain.goods.dto.GoodsResponseDto.CreateGoodsResponseDto;
+import com.example.mission05.domain.goods.dto.GoodsResponseDto.GetGoodsResponseDto;
 import com.example.mission05.domain.goods.service.GoodsService;
 import com.example.mission05.domain.member.entity.type.AuthorityType.Authority;
 import com.example.mission05.global.dto.ResponseDto;
@@ -29,5 +30,11 @@ public class GoodsController {
     ) {
         CreateGoodsResponseDto responseDto = goodsService.createGoods(userDetails.getUsername(), requestDto);
         return ResponseDto.success("상품 등록 기능", responseDto);
+    }
+
+    @GetMapping("/{goodsId}")
+    public ResponseDto<GetGoodsResponseDto> getGoods(@PathVariable Long goodsId) {
+        GetGoodsResponseDto responseDto = goodsService.getGoods(goodsId);
+        return ResponseDto.success("선택한 상품 조회 기능", responseDto);
     }
 }

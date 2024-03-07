@@ -10,6 +10,7 @@ public enum ErrorCode {
     ALREADY_EXIST_EMAIL("이미 가입된 이메일입니다."),
     ALREADY_PHONE_EMAIL("이미 가입된 전화번호입니다."),
     NOT_FOUND_EMAIL("찾을 수 없는 이메일입니다."),
+    NOT_FOUND_GOODS("찾을 수 없는 상품입니다."),
     ;
 
     private final String message;
