@@ -55,7 +55,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String refreshToken = jwtUtil.createRefreshToken(username);
 
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, accessToken);
-        response.addHeader(JwtUtil.REFRESH_TOKEN_HEADER, refreshToken);
+        jwtUtil.addJwtToCookie(refreshToken, response);
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authResult.getPrincipal();
         SigninMemberResponseDto responseDto = new SigninMemberResponseDto(userDetails.member());

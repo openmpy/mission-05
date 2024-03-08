@@ -1,7 +1,9 @@
 package com.example.mission05.global.security;
 
+import com.example.mission05.domain.member.entity.Member;
 import com.example.mission05.global.exception.CustomJwtException;
 import com.example.mission05.global.exception.ErrorCode;
+import com.example.mission05.global.jwt.JwtCode;
 import com.example.mission05.global.jwt.JwtUtil;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
@@ -28,15 +30,28 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     private final UserDetailsServiceImpl userDetailsService;
 
     @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String path = request.getRequestURI();
+        return path.startsWith("/api/v1/members/");
+    }
+
+    @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String tokenValue = jwtUtil.getJwtFromHeader(request);
-        if (StringUtils.hasText(tokenValue)) {
-            if (!jwtUtil.validateToken(tokenValue)) {
-                log.error("Token Error");
+        String accessToken = jwtUtil.getAccessTokenFromHeader(request);
+        String refreshToken = jwtUtil.getTokenFromRequest(request);
+
+        if (StringUtils.hasText(accessToken) && StringUtils.hasText(refreshToken)) {
+            if (jwtUtil.validateToken(accessToken) == JwtCode.DENIED) {
                 throw new CustomJwtException(ErrorCode.NOT_VALID_JWT_TOKEN.getMessage());
+            } else if (jwtUtil.validateToken(accessToken) == JwtCode.EXPIRED) {
+                Member member = jwtUtil.getMemberFromRefreshToken(refreshToken);
+                String newAccessToken = jwtUtil.createAccessToken(member.getEmail(), member.getAuthority());
+                response.addHeader(JwtUtil.AUTHORIZATION_HEADER, newAccessToken);
+                accessToken = newAccessToken.substring(7);
             }
 
-            Claims info = jwtUtil.getUserInfoFromToken(tokenValue);
+            Claims info = jwtUtil.getUserInfoFromToken(accessToken);
+
             try {
                 setAuthentication(info.getSubject());
             } catch (Exception e) {
