@@ -14,6 +14,8 @@ public enum ErrorCode {
     NOT_FOUND_BASKET("찾을 수 없는 장바구니입니다."),
     LACK_AMOUNT_GOODS("상품 수량이 부족합니다."),
     NOT_INCORRECT_MEMBER("잘못된 회원 정보입니다."),
+    NOT_VALID_ACCESS_TOKEN("찾을 수 없는 액세스 토큰입니다."),
+    NOT_VALID_REFRESH_TOKEN("찾을 수 없는 리프레쉬 토큰입니다."),
     ;
 
     private final String message;

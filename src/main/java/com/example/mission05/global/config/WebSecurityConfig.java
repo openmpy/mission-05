@@ -69,13 +69,13 @@ public class WebSecurityConfig {
         );
 
         http.authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                .requestMatchers("/api/v1/members/*").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/v1/goods/{goodsId}").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/v1/goods").permitAll()
-                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
-                .requestMatchers(PathRequest.toH2Console()).permitAll()
-                .anyRequest().authenticated()
+                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                        .requestMatchers("/api/v1/members/*").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/goods/{goodsId}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/goods").permitAll()
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+//                .requestMatchers(PathRequest.toH2Console()).permitAll()
+                        .anyRequest().authenticated()
         );
 
         // 필터 관리
