@@ -36,9 +36,9 @@ public class JwtUtil {
     public static final String AUTHORIZATION_REFRESH_HEADER = "Authorization-Refresh";
     public static final String AUTHORIZATION_KEY = "auth";
     public static final String BEARER_PREFIX = "Bearer ";
+    private static final long ACCESS_TOKEN_TIME = 10 * 60 * 1000L; // 10분
+    private static final long REFRESH_TOKEN_TIME = 7 * 24 * 60 * 60 * 1000L; // 7일
 
-    private final long ACCESS_TOKEN_TIME = 10 * 60 * 1000L; // 10분
-    private final long REFRESH_TOKEN_TIME = 7 * 24 * 60 * 60 * 1000L; // 7일
     private final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
     @Value("${jwt.secret.key}")
@@ -92,14 +92,6 @@ public class JwtUtil {
         String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
             return bearerToken.substring(7);
-        }
-        return null;
-    }
-
-    public String getRefreshTokenFromHeader(HttpServletRequest request) {
-        String bearerToken = request.getHeader(AUTHORIZATION_REFRESH_HEADER);
-        if (StringUtils.hasText(bearerToken)) {
-            return bearerToken;
         }
         return null;
     }
