@@ -80,8 +80,7 @@
 - Swagger UI
 - QueryDsl
 - JWT
-- AWS EC2
-- AWS S3
+- EC2, RDS, S3, ElastiCache
 - Redis
 - MySQL
 - H2
@@ -131,6 +130,7 @@ erDiagram
 ```
 
 ## 📄 API 명세서
+URL: http://3.35.22.224/swagger-ui/index.html
 
 <img width="1149" alt="스크린샷 2024-03-08 오후 12 47 05" src="https://github.com/openmpy/mission-05/assets/150704638/bd7986cf-731e-410b-a024-08dfc1ac36d7">
 
